@@ -35,7 +35,7 @@ const game = {
     start() {
         this.reset()
         this.life = 3
-        this.blife = 30
+        this.blife = 30000
         this.interval = setInterval(() => {
             this.framesCounter++
 
@@ -105,11 +105,11 @@ const game = {
         this.floor.draw()
         this.player.draw(this.framesCounter)
 
-        this.score >= 1 ? this.boss.draw(this.framesCounter) : null
+        this.score >= 10 ? this.boss.draw(this.framesCounter) : null
         this.normalEnemy.forEach(enemy => enemy.draw(this.framesCounter))
         lifes.draw(this.life)
         score.draw(this.score)
-        this.score >= 1 ? blife.draw(this.blife) : null
+        this.score >= 10 ? blife.draw(this.blife) : null
 
     },
 
@@ -173,13 +173,17 @@ const game = {
         this.player.bullets.forEach(bullet => {
 
             if (
-                bullet.posY < this.boss.posY * this.boss.height &&
-                bullet.posX > this.boss.posX &&
-                bullet.posX < this.boss.posX + this.boss.width
+                bullet.posX < this.boss.posX + this.boss.width / 2 + 100 &&
+                bullet.posX + bullet.width > this.boss.posX + 300 &&
+                bullet.posY < this.boss.posY + this.boss.height - 100 &&
+                bullet.height + bullet.posY > this.boss.posY
             ) {
                 this.blife--
 
-
+                    let index2 = this.player.bullets.indexOf(bullet)
+                if (index2 > -1) {
+                    this.player.bullets.splice(index2, 1)
+                }
             }
         })
 
