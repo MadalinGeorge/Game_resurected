@@ -132,7 +132,7 @@ class Player {
                 this.posY + 50,
                 this.width,
                 this.height,
-                15,
+                10,
                 "player"
             )
         )

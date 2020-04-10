@@ -35,7 +35,7 @@ const game = {
     start() {
         this.reset()
         this.life = 3
-        this.blife = 30000
+        this.blife = 50
         this.interval = setInterval(() => {
             this.framesCounter++
 
@@ -56,6 +56,7 @@ const game = {
 
 
             this.life < 1 ? this.gameOver() : null
+            this.blife < 1 ? this.victory() : null
             this.framesCounter > 5000 ? this.framesCounter = 0 : null
 
         }, 1000 / this.fps)
@@ -130,12 +131,25 @@ const game = {
 
 
     gameOver() {
-        // document.location.reload();
+
         setTimeout(() => {
             clearInterval(this.interval);
         }, 500);
         this.image = new Image()
         this.image.src = './img/gameOver.jpg'
+        this.ctx.fillStyle = 'white'
+        this.ctx.fillRect(0, 0, 351, 618)
+        this.ctx.drawImage(this.image, 0, 0, this.width + 50, this.height)
+
+    },
+
+    victory() {
+
+        setTimeout(() => {
+            clearInterval(this.interval);
+        }, 500);
+        this.image = new Image()
+        this.image.src = '../img/victory.jpg'
         this.ctx.fillStyle = 'white'
         this.ctx.fillRect(0, 0, 351, 618)
         this.ctx.drawImage(this.image, 0, 0, this.width + 50, this.height)
